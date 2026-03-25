@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colonna d'Armonia — Collegio MM∴VV∴ Lazio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8cc7a;
+    --gold-dark: #8a6e2a;
+    --black: #0a0a0a;
+    --deep: #111008;
+    --parchment: #f5f0e8;
+    --ink: #1a1608;
+    --muted: #7a6e50;
+    --line: rgba(201,168,76,0.25);
+    --radius: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--deep);
+    color: var(--parchment);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,168,76,0.03) 39px, rgba(201,168,76,0.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,168,76,0.03) 39px, rgba(201,168,76,0.03) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    animation: fadeDown 0.9s ease both;
+  }
+
+  .symbol {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 28px;
+    opacity: 0.85;
+  }
+
+  .title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.1rem, 3vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--line); }
+  .divider-gem {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* Form */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .field:nth-child(1) { animation-delay: 0.05s; }
+  .field:nth-child(2) { animation-delay: 0.10s; }
+  .field:nth-child(3) { animation-delay: 0.15s; }
+  .field:nth-child(4) { animation-delay: 0.20s; }
+  .field:nth-child(5) { animation-delay: 0.25s; }
+  .field:nth-child(6) { animation-delay: 0.30s; }
+  .field:nth-child(7) { animation-delay: 0.35s; }
+  .field:nth-child(8) { animation-delay: 0.40s; }
+  .field:nth-child(9) { animation-delay: 0.45s; }
+
+  label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  label .req {
+    color: var(--gold-light);
+    font-size: 0.85em;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    border-bottom-color: rgba(201,168,76,0.4);
+    border-radius: var(--radius);
+    color: var(--parchment);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.08), 0 1px 20px rgba(201,168,76,0.06);
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(245,240,232,0.25); }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  select option {
+    background: #1a1608;
+    color: var(--parchment);
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* Radio group */
+  .radio-group {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .radio-group label {
+    flex: 1;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: var(--muted);
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+    border-right: 1px solid var(--line);
+    user-select: none;
+  }
+
+  .radio-group label:last-child { border-right: none; }
+
+  .radio-group input[type="radio"] { display: none; }
+
+  .radio-group input[type="radio"]:checked + label {
+    background: rgba(201,168,76,0.12);
+    color: var(--gold-light);
+  }
+
+  .radio-group label:hover {
+    background: rgba(201,168,76,0.06);
+    color: var(--parchment);
+  }
+
+  /* Submit */
+  .submit-wrap {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn-submit {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    border: none;
+    padding: 17px 48px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: opacity 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.25);
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .btn-submit:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 32px rgba(201,168,76,0.35);
+  }
+
+  .btn-submit:active { transform: translateY(0); }
+
+  .btn-clear {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .btn-clear:hover { color: var(--parchment); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(10,10,8,0.95);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 100;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Admin panel */
+  .admin-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba(10,10,8,0.8);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 7px 12px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: color 0.2s, border-color 0.2s;
+    z-index: 50;
+  }
+  .admin-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+  .admin-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+  .admin-panel.open { display: block; }
+
+  .admin-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #111008;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .admin-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .admin-close {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .admin-close:hover { color: var(--gold); border-color: var(--gold); }
+
+  .admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .btn-export, .btn-clear-all {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-export {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    color: var(--black);
+    border: none;
+  }
+
+  .btn-clear-all {
+    background: none;
+    border: 1px solid rgba(255,80,80,0.3);
+    color: rgba(255,120,120,0.7);
+  }
+
+  .btn-export:hover, .btn-clear-all:hover { opacity: 0.8; }
+
+  .submissions-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .submission-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 12px;
+  }
+
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+  }
+
+  .card-date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .card-field { display: flex; flex-direction: column; gap: 3px; }
+  .card-field-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .card-field-value {
+    font-size: 0.85rem;
+    color: var(--parchment);
+    word-break: break-word;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  /* Error state */
+  .field.error input,
+  .field.error select,
+  .field.error textarea {
+    border-color: rgba(255,100,100,0.5);
+  }
+  .field-error {
+    font-size: 0.75rem;
+    color: rgba(255,140,140,0.8);
+    font-style: italic;
+    display: none;
+  }
+  .field.error .field-error { display: block; }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 40px 16px 64px; }
+    .radio-group { flex-direction: column; }
+    .radio-group label { border-right: none; border-bottom: 1px solid var(--line); }
+    .radio-group label:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<button class="admin-toggle" onclick="openAdmin()">Archivio ∴</button>
+
+<div class="page">
+  <div class="header">
+    <!-- Masonic compass & square SVG -->
+    <svg class="symbol" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="34" stroke="#c9a84c" stroke-width="0.7" stroke-dasharray="3 5" opacity="0.4"/>
+      <!-- Compass left arm -->
+      <line x1="36" y1="20" x2="18" y2="58" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Compass right arm -->
+      <line x1="36" y1="20" x2="54" y2="58" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Compass arc -->
+      <path d="M22 46 Q36 62 50 46" stroke="#c9a84c" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- Square left -->
+      <line x1="18" y1="58" x2="18" y2="36" stroke="#e8cc7a" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- Square bottom -->
+      <line x1="18" y1="58" x2="44" y2="58" stroke="#e8cc7a" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- G -->
+      <text x="36" y="41" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="#c9a84c" font-weight="600">G</text>
+    </svg>
+
+    <div class="title">Colonna d'Armonia<br>Collegio MM∴VV∴ Lazio</div>
+    <div class="subtitle">Compilare i campi richiesti</div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+
+  <form class="form" id="mainForm" novalidate>
+
+    <div class="field" id="f-nome">
+      <label for="nome">Nome e cognome Fratello <span class="req">*</span></label>
+      <input type="text" id="nome" placeholder="Inserisci nome e cognome" autocomplete="name">
+      <span class="field-error">Campo obbligatorio</span>
+    </div>
+
+    <div class="field" id="f-grado">
+      <label for="grado">Grado <span class="req">*</span></label>
+      <select id="grado">
+        <option value="" disabled selected>— Seleziona —</option>
+        <option value="Apprendista">Apprendista</option>
+        <option value="Compagno">Compagno</option>
+        <option value="Maestro">Maestro</option>
+      </select>
+      <span class="field-error">Seleziona un grado</span>
+    </div>
+
+    <div class="field" id="f-officina">
+      <label for="officina">Officina — Titolo e numero <span class="req">*</span></label>
+      <input type="text" id="officina" placeholder="es. Lux Aeterna n. 123">
+      <span class="field-error">Campo obbligatorio</span>
+    </div>
+
+    <div class="field" id="f-oriente">
+      <label for="oriente">Oriente <span class="req">*</span></label>
+      <select id="oriente">
+        <option value="" disabled selected>— Seleziona —</option>
+        <option>Civitavecchia</option>
+        <option>Frosinone</option>
+        <option>Latina</option>
+        <option>Nettuno</option>
+        <option>Rieti</option>
+        <option>Roma</option>
+        <option>Velletri</option>
+        <option>Viterbo</option>
+      </select>
+      <span class="field-error">Seleziona un oriente</span>
+    </div>
+
+    <div class="field" id="f-strumento">
+      <label for="strumento">Strumento principale <span class="req">*</span></label>
+      <input type="text" id="strumento" placeholder="es. Pianoforte, Violino, Chitarra…">
+      <span class="field-error">Campo obbligatorio</span>
+    </div>
+
+    <div class="field" id="f-generi">
+      <label for="generi">Generi di riferimento <span class="req">*</span></label>
+      <textarea id="generi" placeholder="Indica uno o più generi musicali…"></textarea>
+      <span class="field-error">Campo obbligatorio</span>
+    </div>
+
+    <div class="field" id="f-livello">
+      <label>Professionista o Amatore <span class="req">*</span></label>
+      <div class="radio-group">
+        <input type="radio" name="livello" id="pro" value="Professionista">
+        <label for="pro">Professionista</label>
+        <input type="radio" name="livello" id="ama" value="Amatore">
+        <label for="ama">Amatore</label>
+      </div>
+      <span class="field-error" id="livello-error" style="display:none">Seleziona un'opzione</span>
+    </div>
+
+    <div class="field" id="f-mail">
+      <label for="mail">Indirizzo e-mail <span class="req">*</span></label>
+      <input type="email" id="mail" placeholder="nome@esempio.com" autocomplete="email">
+      <span class="field-error">Inserisci un indirizzo e-mail valido</span>
+    </div>
+
+    <div class="field" id="f-tel">
+      <label for="tel">Recapito telefonico <span class="req">*</span></label>
+      <input type="tel" id="tel" placeholder="+39 000 000 0000" autocomplete="tel">
+      <span class="field-error">Campo obbligatorio</span>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit">Invia ∴</button>
+      <button type="button" class="btn-clear" onclick="clearForm()">Cancella form</button>
+    </div>
+
+  </form>
+</div>
+
+<!-- Admin panel -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-inner">
+    <div class="admin-header">
+      <div class="admin-title">Archivio Iscrizioni</div>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-export" onclick="exportCSV()">Esporta CSV</button>
+      <button class="btn-clear-all" onclick="clearAll()">Cancella tutto</button>
+    </div>
+    <div class="submissions-count" id="submissionsCount"></div>
+    <div id="submissionsList"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'colonna_armonia_submissions';
+
+  function getSubmissions() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveSubmissions(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function showToast(msg, duration = 3200) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), duration);
+  }
+
+  function clearForm() {
+    document.getElementById('mainForm').reset();
+    document.querySelectorAll('.field').forEach(f => f.classList.remove('error'));
+    document.getElementById('livello-error').style.display = 'none';
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    const textFields = [
+      ['nome', 'f-nome'],
+      ['officina', 'f-officina'],
+      ['strumento', 'f-strumento'],
+      ['generi', 'f-generi'],
+      ['tel', 'f-tel'],
+    ];
+
+    textFields.forEach(([id, fid]) => {
+      const el = document.getElementById(id);
+      const fw = document.getElementById(fid);
+      if (!el.value.trim()) {
+        fw.classList.add('error');
+        valid = false;
+      } else {
+        fw.classList.remove('error');
+      }
+    });
+
+    // selects
+    ['grado', 'oriente'].forEach(id => {
+      const el = document.getElementById(id);
+      const fw = document.getElementById('f-' + id);
+      if (!el.value) {
+        fw.classList.add('error');
+        valid = false;
+      } else {
+        fw.classList.remove('error');
+      }
+    });
+
+    // email
+    const mail = document.getElementById('mail');
+    const mailWrap = document.getElementById('f-mail');
+    if (!mail.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value)) {
+      mailWrap.classList.add('error');
+      valid = false;
+    } else {
+      mailWrap.classList.remove('error');
+    }
+
+    // radio
+    const livello = document.querySelector('input[name="livello"]:checked');
+    const le = document.getElementById('livello-error');
+    if (!livello) {
+      le.style.display = 'block';
+      valid = false;
+    } else {
+      le.style.display = 'none';
+    }
+
+    return valid;
+  }
+
+  document.getElementById('mainForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validateForm()) { showToast('⚠ Compila tutti i campi obbligatori'); return; }
+
+    const entry = {
+      id: Date.now(),
+      data: new Date().toLocaleString('it-IT'),
+      nome: document.getElementById('nome').value.trim(),
+      grado: document.getElementById('grado').value,
+      officina: document.getElementById('officina').value.trim(),
+      oriente: document.getElementById('oriente').value,
+      strumento: document.getElementById('strumento').value.trim(),
+      generi: document.getElementById('generi').value.trim(),
+      livello: document.querySelector('input[name="livello"]:checked').value,
+      mail: document.getElementById('mail').value.trim(),
+      tel: document.getElementById('tel').value.trim(),
+    };
+
+    const subs = getSubmissions();
+    subs.push(entry);
+    saveSubmissions(subs);
+
+    clearForm();
+    showToast('✓ Iscrizione registrata con successo');
+  });
+
+  /* Admin */
+  function openAdmin() {
+    renderSubmissions();
+    document.getElementById('adminPanel').classList.add('open');
+  }
+
+  function closeAdmin() {
+    document.getElementById('adminPanel').classList.remove('open');
+  }
+
+  function renderSubmissions() {
+    const subs = getSubmissions();
+    const list = document.getElementById('submissionsList');
+    const count = document.getElementById('submissionsCount');
+
+    count.textContent = subs.length === 0
+      ? 'Nessuna iscrizione ancora registrata.'
+      : `${subs.length} iscrizione${subs.length !== 1 ? 'i' : 'e'} registrata${subs.length !== 1 ? 'e' : ''}.`;
+
+    if (subs.length === 0) {
+      list.innerHTML = '<div class="empty-state">L\'archivio è vuoto.</div>';
+      return;
+    }
+
+    list.innerHTML = [...subs].reverse().map(s => `
+      <div class="submission-card">
+        <div class="card-header">
+          <div class="card-name">${s.nome}</div>
+          <div class="card-date">${s.data}</div>
+        </div>
+        <div class="card-grid">
+          <div class="card-field"><div class="card-field-label">Grado</div><div class="card-field-value">${s.grado}</div></div>
+          <div class="card-field"><div class="card-field-label">Officina</div><div class="card-field-value">${s.officina}</div></div>
+          <div class="card-field"><div class="card-field-label">Oriente</div><div class="card-field-value">${s.oriente}</div></div>
+          <div class="card-field"><div class="card-field-label">Strumento</div><div class="card-field-value">${s.strumento}</div></div>
+          <div class="card-field"><div class="card-field-label">Generi</div><div class="card-field-value">${s.generi}</div></div>
+          <div class="card-field"><div class="card-field-label">Livello</div><div class="card-field-value">${s.livello}</div></div>
+          <div class="card-field"><div class="card-field-label">E-mail</div><div class="card-field-value">${s.mail}</div></div>
+          <div class="card-field"><div class="card-field-label">Telefono</div><div class="card-field-value">${s.tel}</div></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function clearAll() {
+    if (!confirm('Eliminare tutte le iscrizioni dall\'archivio?')) return;
+    saveSubmissions([]);
+    renderSubmissions();
+    showToast('Archivio svuotato.');
+  }
+
+  function exportCSV() {
+    const subs = getSubmissions();
+    if (!subs.length) { showToast('Nessun dato da esportare.'); return; }
+
+    const headers = ['Data','Nome','Grado','Officina','Oriente','Strumento','Generi','Livello','E-mail','Telefono'];
+    const rows = subs.map(s => [
+      s.data, s.nome, s.grado, s.officina, s.oriente,
+      s.strumento, s.generi, s.livello, s.mail, s.tel
+    ].map(v => `"${(v||'').replace(/"/g,'""')}"`).join(','));
+
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `colonna_armonia_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Close admin on backdrop click
+  document.getElementById('adminPanel').addEventListener('click', function(e) {
+    if (e.target === this) closeAdmin();
+  });
+</script>
+</body>
+</html>
